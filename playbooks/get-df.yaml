@@ -3,8 +3,7 @@
   tasks:
 
   - name: Check system information
-    shell:
-    	"lsb_release -a"
+    ansible.builtin.shell: "lsb_release -a"
     register: os_info
     
   - debug:
