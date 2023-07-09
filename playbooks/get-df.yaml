@@ -4,6 +4,9 @@
 
   - name: Check system information
     ansible.builtin.shell: "lsb_release -a"
-    register: os_info
+    register: results
+  - name: output results
+    ansible.builtin.debug:
+      var: results
     
  
