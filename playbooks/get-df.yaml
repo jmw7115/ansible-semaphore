@@ -1,24 +1,11 @@
 - hosts: all
-
-  vars:
-
-    df: "{{ df_out.stdout|community.general.jc('df') }}"
-    df_used: "{{ df|ansible.utils.replace_keys(target=_target) }}"
-    _target:
-      - before: capacity_percent
-        after: use_percent
-    mount_percent: "{{ df_used|items2dict(key_name='mounted_on',
-                                          value_name='use_percent') }}"
     
   tasks:
 
-    - command: df
-      register: df_out
-    - debug:
-        var: df
-
-    - debug:
-        var: df_used
-
-    - debug:
-        var: mount_percent
+  - name: Check system information
+    shell:
+    	"lsb_release -a"
+    register: os_info
+    
+  - debug:
+    	msg: "{{os_info.stdout_lines}}"
